@@ -1,15 +1,13 @@
 <?php
 
-require "prototype.php";
+require "prototypal.php";
 
 
 
 class A extends ProtoObject {
-
-	public static $prototype = null;
 	
 	public function __construct() {
-		parent::__construct();
+		ProtoObject::__construct();
 	}
 	
 }
@@ -17,11 +15,9 @@ class A extends ProtoObject {
 
 
 class B extends A {
-
-	public static $prototype = null;
 	
 	public function __construct() {
-		parent::__construct();
+		ProtoObject::__construct();
 	}
 	
 }

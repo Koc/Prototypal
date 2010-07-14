@@ -12,25 +12,25 @@ Prototypal inheritance for PHP classes
 
 h2. Basic Use
 
-First, any class that you want to utilize prototyping must 1) extend the ProtoObject class (or a child of it) 2) have a public, static variable $prototype and 3) call the ProtoObject constructor (@ProtoObject::__construct@).
+First, any class that you want to utilize prototyping must 1) extend the ProtoObject class (or a child of it) and 2) call the ProtoObject constructor (@ProtoObject::__construct@).
 
 <pre><code><?php
 
   class MyClass extends ProtoObject {
-
-    public static $prototype = null;
   
     public function __construct() {
-      parent::__construct();
+      ProtoObject::__construct();
     }
 
   }
 
 ?></code></pre>
 
-Then, you can access the prototype chain either statically or through an instance of the class:
+Then, you can access the prototype chain either statically or through an instance of the class; however, if no instance has been created before you try to use prototyping statically, then you must first initialize the prototype chain by calling @init_prototype()@:
 
 <pre><code><?php
+
+  MyClass::init_prototype();
 
   MyClass::$prototype->one = 'foo';
 
