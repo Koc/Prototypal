@@ -2,9 +2,9 @@
 
 require "prototype.php";
 
-header("Content-Type: text/plain");
 
-class B extends ProtoObject {
+
+class A extends ProtoObject {
 
 	public static $prototype = null;
 	
@@ -14,13 +14,26 @@ class B extends ProtoObject {
 	
 }
 
-$a = new ProtoObject();
-$b = new B();
 
-$a->prototype->test = function($self) {
-	var_dump($self);
-};
 
-$b->test();
+class B extends A {
+
+	public static $prototype = null;
+	
+	public function __construct() {
+		parent::__construct();
+	}
+	
+}
+
+
+
+$a = new A(); $b = new B();
+
+$a->prototype->test = 'Hello World!';
+
+echo $b->test;   // outputs: Hello World!
+
+
 
 ?>

@@ -1,0 +1,61 @@
+h1. Prototypal
+
+Version: 0.1.1-rc
+Author: James Brumond
+
+Copyright 2010 James Brumond
+Dual licensed under MIT and GPL
+
+h2. Description
+
+Prototypal inheritance for PHP classes
+
+h2. Basic Use
+
+First, any class that you want to utilize prototyping must 1) extend the ProtoObject class (or a child of it) 2) have a public, static variable $prototype and 3) call the ProtoObject constructor (@ProtoObject::__construct@).
+
+<pre><code><?php
+
+  class MyClass extends ProtoObject {
+
+    public static $prototype = null;
+  
+    public function __construct() {
+      parent::__construct();
+    }
+
+  }
+
+?></code></pre>
+
+Then, you can access the prototype chain either statically or through an instance of the class:
+
+<pre><code><?php
+
+  MyClass::$prototype->one = 'foo';
+
+  $my_object = new MyClass();
+
+  echo $my_object->one;   // outputs: foo
+
+  $my_object->prototype->one = 'bar';
+
+  echo $my_object->one;   // outputs: bar
+
+?></code></pre>
+
+Prototypes can be methods, as well. Every prototype method must have a first parameter (eg. @$self@) in order to access the object in question (much the same way python methods work).
+
+
+<pre><code><?php
+
+  MyClass::$prototype->two = function($self) {
+    echo $self->one;
+  };
+  
+  $my_object->two();   // outputs bar
+
+?></code></pre>
+
+
+
